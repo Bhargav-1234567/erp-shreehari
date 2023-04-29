@@ -1,0 +1,204 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Electron Demo</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <!-- <script type="text/javascript" src="../js/parts.js"></script> -->
+</head>
+
+<body>
+    <script>
+        const database = require('../js/database');
+        window.onload = async function () {
+            if (window.location.search) {
+                const params = new Proxy(new URLSearchParams(window.location.search), {
+                    get: (searchParams, prop) => searchParams.get(prop),
+                });
+                // Get the value of "some_key" in eg "https://example.com/?some_key=some_value"
+                let value = params.id;
+                try {
+                    const doc = await database.getPartById(value);
+                    document.getElementById('partNo').value = doc.partNo;
+                    document.getElementById('partName').value = doc.partName;
+                    document.getElementById('dieSize').value = doc.dieSize;
+                    document.getElementById('cutWeight').value = doc.cutWeight;
+                    document.getElementById('forgingWeight').value = doc.forgingWeight;
+                    document.getElementById('material').value = doc.material;
+                    document.getElementById('forgingDate').value = doc.forgingDate;
+
+                    document.getElementById('addPart').innerHTML = 'Update Part'
+
+                    document.getElementById('addPart').addEventListener('click', () => {
+
+                        // Retrieve the input fields
+                        var partNo = document.getElementById('partNo');
+                        var partName = document.getElementById('partName');
+                        var dieSize = document.getElementById('dieSize');
+                        var cutWeight = document.getElementById('cutWeight');
+                        var forgingWeight = document.getElementById('forgingWeight');
+                        var material = document.getElementById('material');
+                        var forgingDate = document.getElementById('forgingDate')
+                        // Save the person in the database
+                        let dataSet = { partNo: partNo.value, partName: partName.value, dieSize: dieSize.value, cutWeight: cutWeight.value, forgingWeight: forgingWeight.value, material: material.value, forgingDate: forgingDate.value }
+                        database.updatePart(value, dataSet);
+                        window.location.href = "./parts.html";
+
+
+                        // Reset the input fields
+                        // partNo.value = '';
+                        // PartName.value = '';
+                        // dieSize.value = '';
+                        // cutWeight.value = '';
+                        // forgingWeight.value = '';
+                        // material.value = '';
+                        // forgingDate.value = ''
+
+                        // Repopulate the table
+                        // populateTable();
+                    });
+
+
+                } catch (err) {
+                    console.error(err);
+                }
+
+
+            } else {
+
+                // Populate the table
+                // populateTable();
+
+                // Add the add button click event
+                document.getElementById('addPart').addEventListener('click', () => {
+
+                    // Retrieve the input fields
+                    var partNo = document.getElementById('partNo');
+                    var PartName = document.getElementById('partName');
+                    var dieSize = document.getElementById('dieSize');
+                    var cutWeight = document.getElementById('cutWeight');
+                    var forgingWeight = document.getElementById('forgingWeight');
+                    var material = document.getElementById('material');
+                    var forgingDate = document.getElementById('forgingDate')
+                    // Save the person in the database
+                    database.addPart(partNo.value, PartName.value, dieSize.value, cutWeight.value, forgingWeight.value, material.value, forgingDate.value);
+
+                    // Reset the input fields
+                    partNo.value = '';
+                    PartName.value = '';
+                    dieSize.value = '';
+                    cutWeight.value = '';
+                    forgingWeight.value = '';
+                    material.value = '';
+                    forgingDate.value = ''
+
+                    // Repopulate the table
+                    // populateTable();
+                });
+            }
+        }</script>
+    <div class="d-flex">
+        <div class="d-flex flex-column flex-shrink-0 p-3 text-white h-100"
+            style="width: 280px;background-color: #3C4B64;">
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                <svg class="bi me-2" width="40" height="32">
+                    <use xlink:href="#bootstrap"></use>
+                </svg>
+                <span class="fs-4">Sidebar</span>
+            </a>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                    <a href="../index.html" class="nav-link text-white" aria-current="page">
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="parts.html" class="nav-link active">
+                        Parts
+                    </a>
+                </li>
+                <li>
+                    <a href="../materials/materials.html" class="nav-link text-white">
+                        Materials
+                    </a>
+                </li>
+                <li>
+                    <a href="../dieSizes/dieSizes.html" class="nav-link text-white">
+                        Die Sizes
+                    </a>
+                </li>
+            </ul>
+            <hr>
+            <div class="dropdown">
+                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                    id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                    <strong>Profile</strong>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+                    <li><a class="dropdown-item" href="#">New project...</a></li>
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#">Sign out</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container overflow-container" onload="formLoaded()">
+            <div class="inner-header">
+                <div class="common-title">Add Part</div>
+                <!-- <div><button class="btn btn-primary">Add Part</button></div> -->
+            </div>
+            <div class="body-section">
+                <form>
+                    <div class="form-group">
+                        <label for="partNo">Part no</label>
+                        <input type="text" class="form-control" id="partNo" placeholder="Part no" required />
+                        <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                    </div>
+                    <div class="form-group">
+                        <label for="partName">Part name</label>
+                        <input type="text" class="form-control" id="partName" placeholder="Part name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="forgingDate">Forging date</label>
+                        <input type="date" class="form-control" id="forgingDate" />
+                    </div>
+                    <div class="form-group">
+                        <label for="material">Material</label>
+                        <input type="text" class="form-control" id="material" />
+                    </div>
+                    <div class="form-group">
+                        <label for="forgingWeight">Forging weight</label>
+                        <input type="number" class="form-control" id="forgingWeight" />
+                    </div>
+                    <div class="form-group">
+                        <label for="cutWeight">Cut weight</label>
+                        <input type="number" class="form-control" id="cutWeight" />
+                    </div>
+                    <div class="form-group">
+                        <label for="dieSize">Die size</label>
+                        <input type="number" class="form-control" id="dieSize" />
+                    </div>
+                    <button id="addPart" type="submit" class="btn btn-primary">Add</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var remote = require('electron').remote;
+        document.addEventListener('keydown', function (e) {
+            if (e.which === 123) {
+                remote.getCurrentWindow().webContents.openDevTools();
+            } else if (e.which === 116) {
+                location.reload();
+            }
+        });
+    </script>
+</body>
+
+</html>

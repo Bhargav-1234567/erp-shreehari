@@ -1,0 +1,38 @@
+/* @import './skeleton.css'; */
+@import './bootstrap.min.css';
+@import './override.css';
+@import './index.css';
+@import './parts.css';
+
+a,
+a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.inner-header {
+    display: flex;
+    justify-content: space-between;
+    height: 70px;
+    align-items: center;
+}
+
+.common-title {
+    /* font-size: 25px;
+    font-weight: 500; */
+    color: #3C4B64;
+    font-size: 1.75rem;
+    font-weight: 500;
+}
+
+
+.overflow-container {
+    height: 100%;
+    overflow-y: auto;
+}

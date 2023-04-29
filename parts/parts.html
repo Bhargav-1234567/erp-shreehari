@@ -1,0 +1,318 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Electron Demo</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <!-- <script type="text/javascript" src="../js/parts.js"></script> -->
+</head>
+
+<body>
+    <script>
+        const database = require('../js/database');
+
+        const partListRender = (parts) => {
+            var tableBody = '';
+            for (i = 0; i < parts.length; i++) {
+                tableBody += '<tr>';
+                tableBody += '  <td class="h-100"><div class="align-items-center d-flex h-100">' + parts[i].partNo + '</div>  </td>';
+                tableBody += '  <td class="h-100"><div class="align-items-center d-flex h-100">' + parts[i].partName + '</div></td>';
+                tableBody += '  <td class="h-100"><div class="align-items-center d-flex h-100">' + parts[i].dieSize + '</div></td>';
+                tableBody += '  <td class="h-100"><div class="align-items-center d-flex h-100">' + parts[i].cutWeight + '</div></td>';
+                tableBody += '  <td class="h-100"><div class="align-items-center d-flex h-100">' + parts[i].forgingWeight + '</div></td>';
+                tableBody += '  <td class="h-100"><div class="align-items-center d-flex h-100">' + parts[i].material + '</div></td>';
+                tableBody += '  <td class="h-100"><div class="align-items-center d-flex h-100">' + parts[i].forgingDate + '</div></td>';
+                tableBody += `  <td>
+                                    <button class="btn btn-danger" onclick="deletePart(\'` + parts[i]._id + `\')">
+                                        <img src="../assets/delete.svg" height="15" width="15"/>
+                                    </button>
+                                    <a href="./AddParts.html?id=${parts[i]._id}">
+                                        <button  class="btn btn-warning ml-3" ><img src="../assets/edit.svg" height="15" width="15"/></button>
+                                    </a>
+                                </td>`
+                tableBody += '</tr>';
+            }
+            return tableBody
+        }
+
+        window.onload = function () {
+            database.getParts(function (parts) {
+                document.getElementById('partList').innerHTML = partListRender(parts);
+            });
+        }
+
+        const populateTable = () => {
+            database.getParts(function (parts) {
+                document.getElementById('partList').innerHTML = partListRender(parts);
+            });
+        }
+
+        function deletePart(id) {
+            database.deletePart(id);
+            populateTable()
+            // database.getParts(function (parts) {
+            //     document.getElementById('partList').innerHTML = partListRender(parts);
+            // });
+        }
+
+        // function handelDateFilter(e) {
+        //     if (e.target.value === '') {
+        //         populateTable();
+        //     } else {
+        //         database.getParts(function (parts) {
+        //             let filteredParts = parts.filter(function (part) {
+        //                 if (part.forgingDate.toString() === e.target.value.toString()) {
+        //                     return part
+        //                 }
+        //             })
+
+        //             if (filteredParts.length === 0) { document.getElementById('partList').innerHTML = 'No data found for your search' } else {
+        //                 document.getElementById('partList').innerHTML = partListRender(filteredParts);
+        //             }
+        //         });
+        //     }
+        // }
+
+        // function handleNameFilter(e) {
+        //     if (e.keyCode === 13) {
+        //         if (e.target.value === '') {
+        //             populateTable();
+        //         } else {
+        //             database.getParts(function (parts) {
+        //                 let filteredParts = parts.filter(function (part) {
+        //                     if (part.partName.toLowerCase().includes(e.target.value.toLowerCase())) {
+        //                         return part
+        //                     }
+        //                 })
+
+        //                 if (filteredParts.length === 0) { document.getElementById('partList').innerHTML = 'No data found for your search' } else {
+        //                     document.getElementById('partList').innerHTML = partListRender(filteredParts);
+        //                 }
+        //             });
+        //         }
+        //     }
+        // }
+
+        // function handleMaterialFilter(e) {
+        //     if (e.keyCode === 13) {
+        //         if (e.target.value === '') {
+        //             populateTable();
+        //         } else {
+        //             database.getParts(function (parts) {
+        //                 let filteredParts = parts.filter(function (part) {
+        //                     if (part.material.toLowerCase().includes(e.target.value.toLowerCase())) {
+        //                         return part
+        //                     }
+        //                 })
+
+        //                 if (filteredParts.length === 0) { document.getElementById('partList').innerHTML = 'No data found for your search' } else {
+        //                     document.getElementById('partList').innerHTML = partListRender(filteredParts);
+        //                 }
+        //             });
+        //         }
+        //     }
+        // }
+
+        // function handlePartNoFilter(e) {
+        //     if (e.keyCode === 13) {
+        //         if (e.target.value === '') {
+        //             populateTable();
+        //         } else {
+        //             database.getParts(function (parts) {
+        //                 let filteredParts = parts.filter(function (part) {
+        //                     if (part.partNo.includes(e.target.value)) {
+        //                         return part
+        //                     }
+        //                 })
+
+        //                 if (filteredParts.length === 0) { document.getElementById('partList').innerHTML = 'No data found for your search' } else {
+        //                     document.getElementById('partList').innerHTML = partListRender(filteredParts);
+        //                 }
+        //             });
+        //         }
+        //     }
+        // }
+
+
+        function handelDataFilter(e, type) {
+            let forgingDate = document.getElementById('forgingDate').value;
+            let partName = document.getElementById('partName').value;
+            let material = document.getElementById('material').value;
+            let partNo = document.getElementById('partNo').value;
+
+            console.log(e.target.value, forgingDate, partName)
+
+            database.getParts(function (parts) {
+                let filteredParts = parts.filter(function (part) {
+                    if ((partName ? part.partName.toLowerCase().includes(type === 'partName' ? e.target.value.toLowerCase() : partName.toLowerCase()) : true) &&
+                        (forgingDate ? part.forgingDate.toString() === (type === 'forgingDate' ? e.target.value.toString() : forgingDate.toString()) : true) &&
+                        (material ? part.material.toLowerCase().includes(type === 'material' ? e.target.value.toLowerCase() : material.toLowerCase()) : true) &&
+                        (partNo ? part.partNo.toLowerCase().includes(type === 'partNo' ? e.target.value.toLowerCase() : partNo.toLowerCase()) : true)) {
+                        return part
+                    }
+                })
+                if (filteredParts.length === 0) { document.getElementById('partList').innerHTML = 'No data found for your search' } else {
+                    document.getElementById('partList').innerHTML = partListRender(filteredParts);
+                }
+            });
+
+            // if (event.keyCode === 13) {
+            //     if (event.target.value === '') {
+            //         populateTable();
+            //     } else if (type === 'forgingDate') {
+
+            //     } else if (type === 'partName') {
+
+            //     }
+            // }
+        }
+
+    </script>
+
+
+    <div class="d-flex">
+        <div class="d-flex flex-column flex-shrink-0 p-3 text-white h-100"
+            style="width: 280px;background-color: #3C4B64;">
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                <svg class="bi me-2" width="40" height="32">
+                    <use xlink:href="#bootstrap"></use>
+                </svg>
+                <span class="fs-4">Sidebar</span>
+            </a>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                    <a href="../index.html" class="nav-link text-white" aria-current="page">
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../parts/parts.html" class="nav-link active">
+                        Parts
+                    </a>
+                </li>
+                <li>
+                    <a href="../materials/materials.html" class="nav-link text-white">
+                        Materials
+                    </a>
+                </li>
+                <li>
+                    <a href="../dieSizes/dieSizes.html" class="nav-link text-white">
+                        Die Sizes
+                    </a>
+                </li>
+            </ul>
+            <hr>
+            <div class="dropdown">
+                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                    id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                    <strong>Profile</strong>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+                    <li><a class="dropdown-item" href="#">New project...</a></li>
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#">Sign out</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="container overflow-container">
+
+            <div class="inner-header">
+                <div class="common-title">Parts</div>
+                <div><a href="./AddParts.html"> <button class="btn btn-primary"> Add Part</button></a></div>
+            </div>
+            <div class="body-sec">
+                <div class="filter-section">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="forgingDate">Forging Date</label>
+                                <input type="date" class="form-control" id="forgingDate" min="1970-01-01"
+                                    max="2100-12-31" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" placeholder="Forging Date"
+                                    onchange="handelDataFilter(event,'forgingDate')" />
+                                <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="partName">Part Name</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="partName" placeholder="eg. grip"
+                                        onkeydown="handelDataFilter(event,'partName')" />
+                                    <button type="button" class="btn bg-transparent"
+                                        style="margin-left: -40px; z-index: 100;">
+                                        <img src="../assets/close.png" height="10" width="10" />
+                                    </button>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="material">Material</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="material" placeholder="eg. iron"
+                                        onkeydown="handelDataFilter(event,'material')" />
+                                    <button type="button" class="btn bg-transparent"
+                                        style="margin-left: -40px; z-index: 100;">
+                                        <img src="../assets/close.png" height="10" width="10" />
+                                    </button>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="partNo">Part No.</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="partNo" placeholder="eg. 1"
+                                        onkeydown="handelDataFilter(event,'partNo')" /> <button type="button"
+                                        class="btn bg-transparent" style="margin-left: -40px; z-index: 100;">
+                                        <img src="../assets/close.png" height="10" width="10" />
+                                    </button>
+                                </div>
+
+                                <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Part No.</th>
+                            <th>Part Name</th>
+                            <th>Diesize</th>
+                            <th>Cut Weight</th>
+                            <th>Forging Weight</th>
+                            <th>Material</th>
+                            <th>Forging Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="partList">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var remote = require('electron').remote;
+        document.addEventListener('keydown', function (e) {
+            if (e.which === 123) {
+                remote.getCurrentWindow().webContents.openDevTools();
+            } else if (e.which === 116) {
+                location.reload();
+            }
+        });
+    </script>
+</body>
+
+</html>

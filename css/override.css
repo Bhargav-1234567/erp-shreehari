@@ -1,0 +1,14 @@
+.btn-primary {
+    background-color: #3C4B64;
+    border-color: #3C4B64;
+}
+
+.btn-primary:hover {
+    background-color: #5c7298;
+    border-color: #5c7298;
+}
+
+.table .thead-dark th {
+    background-color: #3C4B64;
+    font-weight: normal;
+}

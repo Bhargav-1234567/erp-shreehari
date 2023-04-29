@@ -1,0 +1,109 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/main.css" />
+
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="d-flex">
+        <div class="d-flex flex-column flex-shrink-0 p-3 text-white h-100"
+            style="width: 280px;background-color: #3C4B64;">
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                <svg class="bi me-2" width="40" height="32">
+                    <use xlink:href="#bootstrap"></use>
+                </svg>
+                <span class="fs-4">Sidebar</span>
+            </a>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                    <a href="../index.html" class="nav-link text-white" aria-current="page">
+
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="../parts/parts.html" class="nav-link text-white">
+
+                        Parts
+                    </a>
+                </li>
+                <li>
+                    <a href="../materials/materials.html" class="nav-link active">
+
+                        Materials
+                    </a>
+                </li>
+                <li>
+                    <a href="../dieSizes/dieSizes.html" class="nav-link text-white">
+
+                        Die Sizes
+                    </a>
+                </li>
+
+            </ul>
+            <hr>
+            <div class="dropdown">
+                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                    id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                    <strong>mdo</strong>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+                    <li><a class="dropdown-item" href="#">New project...</a></li>
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#">Sign out</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container overflow-container" onload="formLoaded()">
+            <div class="inner-header">
+                <div class="common-title">Add Diesize</div>
+                <!-- <div><button class="btn btn-primary">Add Part</button></div> -->
+            </div>
+            <div class="body-section">
+                <form>
+                    <div class="form-group">
+                        <label for="dieSizeNo">Diesize No</label>
+                        <input type="text" class="form-control" id="dieSizeNo" placeholder="Diesize No" required />
+                        <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                    </div>
+                    <div class="form-group">
+                        <label for="diesize">Diesize</label>
+                        <input type="text" class="form-control" id="diesize" placeholder="Diesize" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dieQantity">Die Quantity</label>
+                        <input type="number" class="form-control" id="dieQantity" placeholder="Die Quantity" />
+                    </div>
+                    <div class="form-group">
+                        <label for="dieMaterial">Die Material</label>
+                        <input type="text" class="form-control" id="dieMaterial" placeholder="Die Material" />
+                    </div>
+                    <div class="form-group">
+                        <label for="partName">Part Name</label>
+                        <input type="text" class="form-control" id="partName" placeholder="Part Name" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="partQuantity">Part Quantity</label>
+                        <input type="number" class="form-control" id="partQuantity" placeholder="Part Quantity" />
+                    </div>
+
+                    <button id="addMaterial" type="submit" class="btn btn-primary">Add</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

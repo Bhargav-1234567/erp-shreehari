@@ -1,0 +1,104 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Electron Demo</title>
+    <link rel="stylesheet" href="../css/main.css" />
+
+    <script type="text/javascript" src="js/dieSizes.js"></script>
+</head>
+
+<body>
+    <div class="d-flex">
+        <div class="d-flex flex-column flex-shrink-0 p-3 text-white h-100"
+            style="width: 280px;background-color: #3C4B64;">
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                <svg class="bi me-2" width="40" height="32">
+                    <use xlink:href="#bootstrap"></use>
+                </svg>
+                <span class="fs-4">Sidebar</span>
+            </a>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                    <a href="../index.html" class="nav-link text-white" aria-current="page">
+
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="../parts/parts.html" class="nav-link text-white">
+                        Parts
+                    </a>
+                </li>
+                <li>
+                    <a href="../materials/materials.html" class="nav-link text-white">
+
+                        Materials
+                    </a>
+                </li>
+                <li>
+                    <a href="../dieSizes/dieSizes.html" class="nav-link active">
+                        Die Sizes
+                    </a>
+                </li>
+
+            </ul>
+            <hr>
+            <div class="dropdown">
+                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                    id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                    <strong>mdo</strong>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+                    <li><a class="dropdown-item" href="#">New project...</a></li>
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#">Sign out</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container overflow-container">
+            <div class="inner-header">
+                <div class="common-title">Die sizes</div>
+                <div><a href="./addDieSizes.html"><button class="btn btn-primary">Add Die size</button></a>
+                </div>
+            </div>
+            <div class="body-sec">
+                <div class="filter-section">
+
+                </div>
+                <table class="table table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Die Size No.</th>
+                            <th>Die Size</th>
+                            <th>Die Qunatity</th>
+                            <th>Die Price</th>
+                            <th>Die Material</th>
+                            <th>Part Name</th>
+                        </tr>
+                    </thead>
+                    <tbody id="DieSizeList">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var remote = require('electron').remote;
+        document.addEventListener('keydown', function (e) {
+            if (e.which === 123) {
+                remote.getCurrentWindow().webContents.openDevTools();
+            } else if (e.which === 116) {
+                location.reload();
+            }
+        });
+    </script>
+</body>
+
+</html>

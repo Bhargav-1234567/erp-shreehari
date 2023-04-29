@@ -1,0 +1,151 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Electron Demo</title>
+    <link rel="stylesheet" href="../css/main.css" />
+
+    <!-- <script type="text/javascript" src="../js/materials.js"></script> -->
+</head>
+
+<body>
+    <script>
+        const database = require('../js/database');
+
+        const partListRender = (materials) => {
+            var tableBody = '';
+            for (i = 0; i < materials.length; i++) {
+                tableBody += '<tr>';
+                tableBody += '  <td class="h-100"><div class="align-items-center d-flex h-100">' + materials[i].materialNo + '</div>  </td>';
+                tableBody += '  <td class="h-100"><div class="align-items-center d-flex h-100">' + materials[i].materialName + '</div></td>';
+                tableBody += '  <td class="h-100"><div class="align-items-center d-flex h-100">' + materials[i].materialQantity + '</div></td>';
+                tableBody += '  <td class="h-100"><div class="align-items-center d-flex h-100">' + materials[i].materialPrice + '</div></td>';
+                tableBody += `  <td>
+                            <button class="btn btn-danger" onclick="deletMaterial(\'` + materials[i]._id + `\')">
+                                <img src="../assets/delete.svg" height="15" width="15"/>
+                            </button>
+                            <a href="./AddMaterials.html?id=${materials[i]._id}">
+                                <button  class="btn btn-warning ml-3" ><img src="../assets/edit.svg" height="15" width="15"/></button>
+                            </a>
+                        </td>`
+                tableBody += '</tr>';
+            }
+            return tableBody
+        }
+
+        window.onload = function () {
+            // database.getMaterials(function (materials) {
+            //     document.getElementById('materialList').innerHTML = partListRender(materials);
+            // });
+            populateTable()
+        }
+
+
+        function deletMaterial(id) {
+            database.deletMaterial(id);
+            populateTable()
+            // database.getParts(function (parts) {
+            //     document.getElementById('partList').innerHTML = partListRender(parts);
+            // });
+        }
+
+        const populateTable = () => {
+            database.getMaterials(function (parts) {
+                document.getElementById('materialList').innerHTML = partListRender(parts);
+            });
+        }
+    </script>
+    <div class="d-flex" onload="loadPage()">
+        <div class="d-flex flex-column flex-shrink-0 p-3 text-white h-100"
+            style="width: 280px;background-color: #3C4B64;">
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                <svg class="bi me-2" width="40" height="32">
+                    <use xlink:href="#bootstrap"></use>
+                </svg>
+                <span class="fs-4">Sidebar</span>
+            </a>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                    <a href="../index.html" class="nav-link text-white" aria-current="page">
+
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="../parts/parts.html" class="nav-link text-white">
+
+                        Parts
+                    </a>
+                </li>
+                <li>
+                    <a href="../materials/materials.html" class="nav-link active">
+
+                        Materials
+                    </a>
+                </li>
+                <li>
+                    <a href="../dieSizes/dieSizes.html" class="nav-link text-white">
+
+                        Die Sizes
+                    </a>
+                </li>
+
+            </ul>
+            <hr>
+            <div class="dropdown">
+                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                    id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                    <strong>mdo</strong>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+                    <li><a class="dropdown-item" href="#">New project...</a></li>
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#">Sign out</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container overflow-container">
+            <div class="inner-header">
+                <div class="common-title">Materials</div>
+                <div><a href="./addMaterials.html"><button class="btn btn-primary">Add Materials</button></a>
+                </div>
+            </div>
+            <div class="body-sec">
+                <div class="filter-section">
+
+                </div>
+                <table class="table table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Material No.</th>
+                            <th>Material Name</th>
+                            <th>Material Qunatity</th>
+                            <th>Material Price</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="materialList">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var remote = require('electron').remote;
+        document.addEventListener('keydown', function (e) {
+            if (e.which === 123) {
+                remote.getCurrentWindow().webContents.openDevTools();
+            } else if (e.which === 116) {
+                location.reload();
+            }
+        });
+    </script>
+</body>
+
+</html>
