@@ -1,8 +1,10 @@
 // Initialize the database
 var Datastore = require('nedb');
+const fs = require('fs');
 let db = new Datastore({ filename: 'db/persons.db', autoload: true });
 let partsDb = new Datastore({ filename: 'db/parts.db', autoload: true });
-let materialsDb = new Datastore({ filename: 'db/materials.db', autoload: true })
+let materialsDb = new Datastore({ filename: 'db/materials.db', autoload: true });
+let dieSizeDb = new Datastore({ filename: 'db/dieSize.db', autoload: true });
 
 
 // Adds a person
@@ -42,15 +44,16 @@ exports.deletePerson = function (id) {
 
 
 
-exports.addPart = function (partNo, partName, dieSize, cutWeight, forgingWeight, material, forgingDate) {
+exports.addPart = function (partNo, partName, dieSize, cutWeight, forgingWeight, forgingDate, partQuantity, partyName) {
   var part = {
     "partNo": partNo,
     "partName": partName,
     "forgingDate": forgingDate,
-    "material": material,
     "forgingWeight": forgingWeight,
     "cutWeight": cutWeight,
     "dieSize": dieSize,
+    "partQuantity": partQuantity,
+    "partyName": partyName
   };
 
   partsDb.insert(part, function (err, newDoc) {
@@ -160,4 +163,59 @@ exports.updateMaterial = function (id, data) {
   });
 };
 
-///material///////////////////////////////////////////////////
+///diesize///////////////////////////////////////////////////
+exports.addDieSize = function (dieSizeNo, dieSize, dieQuantity, dieMaterial, partName, partQuantity) {
+  var part = {
+    "dieSizeNo": dieSizeNo,
+    "dieSize": dieSize,
+    "dieQuantity": dieQuantity,
+    "partName": partName,
+    "dieMaterial": dieMaterial,
+    "partQuantity": partQuantity
+  };
+
+  dieSizeDb.insert(part, function (err, newDoc) {
+  });
+};
+
+
+exports.getDieSize = function (fnc) {
+
+  // Get all persons from the database
+  dieSizeDb.find({}, function (err, docs) {
+
+    // Execute the parameter function
+    fnc(docs);
+  });
+}
+
+exports.deleteDieSize = function (id) {
+
+  dieSizeDb.remove({ _id: id }, {}, function (err, numRemoved) {
+    // Do nothing
+  });
+}
+
+
+exports.getDieSizeById = function (id) {
+  return new Promise((resolve, reject) => {
+    dieSizeDb.findOne({ _id: id }, function (err, doc) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(doc);
+      }
+    });
+  });
+}
+
+exports.updateDieSize = function (id, data) {
+  console.log(id, data)
+  dieSizeDb.update({ _id: id }, { $set: data }, function (err, newDoc) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(`Successfully updated  record(s)`);
+    }
+  });
+};

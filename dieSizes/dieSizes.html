@@ -9,6 +9,73 @@
 </head>
 
 <body>
+    <script>
+        const database = require('../js/database');
+
+        const partListRender = (parts) => {
+            var tableBody = '';
+            for (i = 0; i < parts.length; i++) {
+                tableBody += '<tr>';
+                tableBody += '  <td class="h-100"><div class="align-items-center d-flex h-100">' + parts[i].dieSizeNo + '</div>  </td>';
+                tableBody += '  <td class="h-100"><div class="align-items-center d-flex h-100">' + parts[i].dieSize + '</div></td>';
+                tableBody += '  <td class="h-100"><div class="align-items-center d-flex h-100">' + parts[i].dieQuantity + '</div></td>';
+                tableBody += '  <td class="h-100"><div class="align-items-center d-flex h-100">' + parts[i].dieMaterial + '</div></td>';
+                tableBody += '  <td class="h-100"><div class="align-items-center d-flex h-100">' + parts[i].partName + '</div></td>';
+                tableBody += '  <td class="h-100"><div class="align-items-center d-flex h-100">' + parts[i].partQuantity + '</div></td>';
+                tableBody += `  <td>
+                                    <button class="btn btn-danger" onclick="deleteDie(\'` + parts[i]._id + `\')">
+                                        <img src="../assets/delete.svg" height="15" width="15"/>
+                                    </button>
+                                    <a href="./addDieSizes.html?id=${parts[i]._id}">
+                                        <button  class="btn btn-warning ml-3" ><img src="../assets/edit.svg" height="15" width="15"/></button>
+                                    </a>
+                                </td>`
+                tableBody += '</tr>';
+            }
+            return tableBody
+        }
+
+        window.onload = function () {
+            database.getDieSize(function (parts) {
+                document.getElementById('DieSizeList').innerHTML = partListRender(parts);
+            });
+        }
+
+        const populateTable = () => {
+            database.getDieSize(function (parts) {
+                document.getElementById('DieSizeList').innerHTML = partListRender(parts);
+            });
+        }
+
+        function deleteDie(id) {
+            database.deletePart(id);
+            populateTable()
+        }
+
+        // function handelDataFilter(e, type) {
+        //     let forgingDate = document.getElementById('forgingDate').value;
+        //     let partName = document.getElementById('partName').value;
+        //     let material = document.getElementById('material').value;
+        //     let partNo = document.getElementById('partNo').value;
+
+        //     console.log(e.target.value, forgingDate, partName)
+
+        //     database.getParts(function (parts) {
+        //         let filteredParts = parts.filter(function (part) {
+        //             if ((partName ? part.partName.toLowerCase().includes(type === 'partName' ? e.target.value.toLowerCase() : partName.toLowerCase()) : true) &&
+        //                 (forgingDate ? part.forgingDate.toString() === (type === 'forgingDate' ? e.target.value.toString() : forgingDate.toString()) : true) &&
+        //                 (material ? part.material.toLowerCase().includes(type === 'material' ? e.target.value.toLowerCase() : material.toLowerCase()) : true) &&
+        //                 (partNo ? part.partNo.toLowerCase().includes(type === 'partNo' ? e.target.value.toLowerCase() : partNo.toLowerCase()) : true)) {
+        //                 return part
+        //             }
+        //         })
+        //         if (filteredParts.length === 0) { document.getElementById('DieSizeList').innerHTML = 'No data found for your search' } else {
+        //             document.getElementById('DieSizeList').innerHTML = partListRender(filteredParts);
+        //         }
+        //     });
+        // }
+
+    </script>
     <div class="d-flex">
         <div class="d-flex flex-column flex-shrink-0 p-3 text-white h-100"
             style="width: 280px;background-color: #3C4B64;">
@@ -72,20 +139,23 @@
                 <div class="filter-section">
 
                 </div>
-                <table class="table table-hover">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>Die Size No.</th>
-                            <th>Die Size</th>
-                            <th>Die Qunatity</th>
-                            <th>Die Price</th>
-                            <th>Die Material</th>
-                            <th>Part Name</th>
-                        </tr>
-                    </thead>
-                    <tbody id="DieSizeList">
-                    </tbody>
-                </table>
+                <div class="overflow-container-title">
+                    <table class="table table-hover">
+                        <thead class="thead-dark" style="position: sticky;top: 0">
+                            <tr>
+                                <th>Die Size No.</th>
+                                <th>Die Size</th>
+                                <th>Die Qunatity</th>
+                                <th>Die Material</th>
+                                <th>Part Name</th>
+                                <th>Part Quantity</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="DieSizeList">
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

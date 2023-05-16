@@ -1,24 +1,11 @@
-{"partNo":"1","partName":"Grip new1","forgingDate":"2023-04-06","material":"irons","forgingWeight":"12","cutWeight":"12","dieSize":"23","_id":"1yUE58TohxJXU36Z"}
-{"partNo":"5","partName":"Titanium grip","forgingDate":"2023-05-01","material":"Titanium","forgingWeight":"15","cutWeight":"14","dieSize":"18","_id":"5rGv9aJlPpU33zHc"}
-{"partNo":"25","partName":"Titanium grip","forgingDate":"2023-04-26","material":"iron","forgingWeight":"","cutWeight":"","dieSize":"","_id":"70YVNWKyY66dsW0r"}
-{"partNo":"2","partName":"Grip 2","forgingDate":"2023-04-02","material":"Copper","forgingWeight":"13","cutWeight":"13","dieSize":"16","_id":"L63g7UFuO4op7Ne9"}
-{"partNo":"20","partName":"Nickel grip","forgingDate":"2023-05-07","material":"Nickel","forgingWeight":"14","cutWeight":"14","dieSize":"16","_id":"aK2J6uQ9dYfP3nS7"}
-{"partNo":"18","partName":"Platinum grip","forgingDate":"2023-05-05","material":"Platinum","forgingWeight":"26","cutWeight":"25","dieSize":"32","_id":"bW5P2nQ7aKjvY3z9"}
-{"partNo":"11","partName":"Bronze grip","forgingDate":"2023-05-01","material":"Bronze","forgingWeight":"18","cutWeight":"18","dieSize":"22","_id":"cE2F8uX7zJnM4gV1"}
-{"partNo":"14","partName":"Diamond grip","forgingDate":"2023-04-19","material":"Diamond","forgingWeight":"30","cutWeight":"30","dieSize":"80","_id":"dR5K8oT1fZcL2yV7"}
-{"partNo":"17","partName":"Carbon fiber grip","forgingDate":"2023-05-12","material":"Carbon fiber","forgingWeight":"19","cutWeight":"19","dieSize":"24","_id":"eR2F6uX5zVnL1gM9"}
-{"partNo":"4","partName":"Raw Iron grip","forgingDate":"2023-04-29","material":"Raw Iron ","forgingWeight":"13","cutWeight":"13","dieSize":"15","_id":"evlRKcj4dp9cg0xe"}
-{"partNo":"19","partName":"Gold grip","forgingDate":"2023-05-15","material":"Gold","forgingWeight":"28","cutWeight":"27","dieSize":"36","_id":"gM8B1rZ5xVnL2fT1"}
-{"partNo":"10","partName":"Gold grip","forgingDate":"2023-04-19","material":"Gold","forgingWeight":"22","cutWeight":"22","dieSize":"60","_id":"hGtR2eE3kYnqZf4S"}
-{"partNo":"8","partName":"Grip Plus","forgingDate":"2023-04-15","material":"Brass","forgingWeight":"10","cutWeight":"10","dieSize":"20","_id":"kRvM3nT1fZbqYc7X"}
-{"partNo":"12","partName":"Copper-plated grip","forgingDate":"2023-04-15","material":"Copper","forgingWeight":"11","cutWeight":"11","dieSize":"18","_id":"mL3Z9pQ4aKjvY5bW"}
-{"partNo":"13","partName":"Steel grip","forgingDate":"2023-04-27","material":"Steel","forgingWeight":"25","cutWeight":"24","dieSize":"30","_id":"pN4S6tG2xHbU8vL9"}
-{"partNo":"22","partName":"Brass grip","forgingDate":"2023-05-09","material":"Brass","forgingWeight":"20","cutWeight":"20","dieSize":"26","_id":"pN6G7tD8xHbV1zS3"}
-{"partNo":"15","partName":"Aluminum grip","forgingDate":"2023-05-10","material":"Aluminum","forgingWeight":"16","cutWeight":"16","dieSize":"20","_id":"qJ3t4pL5zAnM8bW2"}
-{"partNo":"9","partName":"Iron grip","forgingDate":"2023-04-27","material":"Iron","forgingWeight":"20","cutWeight":"20","dieSize":"25","_id":"sLxK9oP6jUhvBt5Q"}
-{"partNo":"3","partName":"Silver grip","forgingDate":"2023-04-23","material":"Silver","forgingWeight":"24","cutWeight":"24","dieSize":"56","_id":"uFpbYRP9u42ugWUY"}
-{"partNo":"5","partName":"Grip Pro","forgingDate":"2023-05-01","material":"Steel","forgingWeight":"15","cutWeight":"15","dieSize":"18","_id":"vMxN4mQ2dYmzZg8W"}
-{"partNo":"7","partName":"Gold-plated grip","forgingDate":"2023-04-15","material":"Brass","forgingWeight":"20","cutWeight":"19","dieSize":"25","_id":"vT3WJ90sO2lkN6eQ"}
-{"partNo":"6","partName":"Bronze grip","forgingDate":"2023-04-27","material":"Bronze","forgingWeight":"11","cutWeight":"10","dieSize":"20","_id":"wIgYd8qmB1xH4SfK"}
-{"partNo":"21","partName":"Tungsten grip","forgingDate":"2023-05-20","material":"Tungsten","forgingWeight":"31","cutWeight":"31","dieSize":"40","_id":"wR4L9oE2fZcK8yV5"}
-{"partNo":"16","partName":"Titanium grip","forgingDate":"2023-05-03","material":"Titanium","forgingWeight":"23","cutWeight":"22","dieSize":"28","_id":"xK7H1sT9dYfN2mL4"}
+{"partNo":"10","partName":"Plate Z","forgingDate":"2023-05-12","material":"titanium","forgingWeight":"11","cutWeight":"11","dieSize":"22","_id":"10lQG47LneIJH86W","partQuantity":"45","partyName":"R.K. industries pvt."}
+{"partNo":"21","partName":"Grip new5","forgingDate":"2023-04-08","material":"irons","forgingWeight":"10","cutWeight":"10","dieSize":"20","_id":"21mUI59BxqPOQ72X","partQuantity":"30","partyName":"ABC Manufacturing"}
+{"partNo":"22","partName":"Handle E","forgingDate":"2023-05-03","material":"steel","forgingWeight":"12","cutWeight":"12","dieSize":"22","_id":"22nVH68CybQNP83Y","partQuantity":"25","partyName":"XYZ Corporation"}
+{"partNo":"23","partName":"Bracket F","forgingDate":"2023-03-18","material":"aluminum","forgingWeight":"6","cutWeight":"6","dieSize":"16","_id":"23oWI77DzaRMO94Z","partQuantity":"40","partyName":"PQR Industries"}
+{"partNo":"24","partName":"Shaft D","forgingDate":"2023-04-30","material":"stainless steel","forgingWeight":"14","cutWeight":"14","dieSize":"24","_id":"24pXJ86EybSNQ05W","partQuantity":"20","partyName":"LMN Manufacturing"}
+{"partNo":"25","partName":"Plate W","forgingDate":"2023-02-12","material":"titanium","forgingWeight":"8","cutWeight":"8","dieSize":"18","_id":"25qYK95FzcTOH16X","partQuantity":"35","partyName":"RST Corporation"}
+{"partNo":"26","partName":"Grip new6","forgingDate":"2023-05-07","material":"irons","forgingWeight":"13","cutWeight":"13","dieSize":"23","_id":"26rZL14GadUPI27Y","partQuantity":"15","partyName":"JKL Industries"}
+{"partNo":"27","partName":"Handle F","forgingDate":"2023-03-22","material":"steel","forgingWeight":"9","cutWeight":"9","dieSize":"19","_id":"27sAM23HzcVQN38Z","partQuantity":"50","partyName":"MNO Corporation"}
+{"partNo":"28","partName":"Bracket G","forgingDate":"2023-04-20","material":"aluminum","forgingWeight":"7","cutWeight":"7","dieSize":"17","_id":"28tBN32IybWPO49W","partQuantity":"28","partyName":"EFG Manufacturing"}
+{"partNo":"29","partName":"Shaft E","forgingDate":"2023-03-08","material":"stainless steel","forgingWeight":"15","cutWeight":"15","dieSize":"25","_id":"29uCO41JzaXNP50X","partQuantity":"18","partyName":"HIJ Industries"}
+{"partNo":"30","partName":"Plate V","forgingDate":"2023-05-18","material":"titanium","forgingWeight":"10","cutWeight":"10","dieSize":"21","_id":"30vDP59KacROQ67Y","partQuantity":"42","partyName":"UVW Corporation"}

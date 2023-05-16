@@ -10,7 +10,20 @@
 <body>
     <script>
         const database = require('../js/database');
+
+        function getDieSizeOptions(dies) {
+            let options;
+            for (i = 0; i < dies.length; i++) {
+                console.log(dies)
+                options += `<option value="${dies[i].dieSize}">${dies[i].dieSize}</option>`;
+            }
+            return options;
+        }
+
         window.onload = async function () {
+            database.getDieSize(function (dies) {
+                document.getElementById("dieSize").innerHTML = getDieSizeOptions(dies)
+            })
             if (window.location.search) {
                 const params = new Proxy(new URLSearchParams(window.location.search), {
                     get: (searchParams, prop) => searchParams.get(prop),
@@ -24,76 +37,67 @@
                     document.getElementById('dieSize').value = doc.dieSize;
                     document.getElementById('cutWeight').value = doc.cutWeight;
                     document.getElementById('forgingWeight').value = doc.forgingWeight;
-                    document.getElementById('material').value = doc.material;
                     document.getElementById('forgingDate').value = doc.forgingDate;
+                    document.getElementById('partQuantity').value = doc.partQuantity;
+                    document.getElementById('partyName').value = doc.partyName;
+
 
                     document.getElementById('addPart').innerHTML = 'Update Part'
-
                     document.getElementById('addPart').addEventListener('click', () => {
-
-                        // Retrieve the input fields
                         var partNo = document.getElementById('partNo');
+                        if (!partNo.value) {
+                            document.getElementById('partNoErr').innerHTML = 'Part number is required'
+                            return;
+                        }
                         var partName = document.getElementById('partName');
+                        if (!partName.value) {
+                            document.getElementById('partNameErr').innerHTML = 'Part name is required'
+                            return;
+                        }
                         var dieSize = document.getElementById('dieSize');
                         var cutWeight = document.getElementById('cutWeight');
                         var forgingWeight = document.getElementById('forgingWeight');
-                        var material = document.getElementById('material');
+                        var partQuantity = document.getElementById('partQuantity');
                         var forgingDate = document.getElementById('forgingDate')
-                        // Save the person in the database
-                        let dataSet = { partNo: partNo.value, partName: partName.value, dieSize: dieSize.value, cutWeight: cutWeight.value, forgingWeight: forgingWeight.value, material: material.value, forgingDate: forgingDate.value }
+                        var partyName = document.getElementById('partyName')
+                        let dataSet = { partNo: partNo.value, partName: partName.value, dieSize: dieSize.value, cutWeight: cutWeight.value, forgingWeight: forgingWeight.value, forgingDate: forgingDate.value, partQuantity: partQuantity.value, partyName: partyName.value }
                         database.updatePart(value, dataSet);
                         window.location.href = "./parts.html";
-
-
-                        // Reset the input fields
-                        // partNo.value = '';
-                        // PartName.value = '';
-                        // dieSize.value = '';
-                        // cutWeight.value = '';
-                        // forgingWeight.value = '';
-                        // material.value = '';
-                        // forgingDate.value = ''
-
-                        // Repopulate the table
-                        // populateTable();
                     });
-
-
                 } catch (err) {
                     console.error(err);
                 }
-
-
             } else {
 
-                // Populate the table
-                // populateTable();
-
-                // Add the add button click event
                 document.getElementById('addPart').addEventListener('click', () => {
-
-                    // Retrieve the input fields
                     var partNo = document.getElementById('partNo');
+                    if (!partNo.value) {
+                        document.getElementById('partNoErr').innerHTML = 'Part number is required'
+                        document.getElementById('partNo').focus();
+                        return;
+                    }
                     var PartName = document.getElementById('partName');
+                    if (!partName.value) {
+                        document.getElementById('partNameErr').innerHTML = 'Part name is required';
+                        document.getElementById('partName').focus();
+                        return;
+                    }
+                    console.log(partName.value)
                     var dieSize = document.getElementById('dieSize');
                     var cutWeight = document.getElementById('cutWeight');
                     var forgingWeight = document.getElementById('forgingWeight');
-                    var material = document.getElementById('material');
-                    var forgingDate = document.getElementById('forgingDate')
-                    // Save the person in the database
-                    database.addPart(partNo.value, PartName.value, dieSize.value, cutWeight.value, forgingWeight.value, material.value, forgingDate.value);
-
-                    // Reset the input fields
+                    var forgingDate = document.getElementById('forgingDate');
+                    var partQuantity = document.getElementById('partQuantity');
+                    var partyName = document.getElementById('partyName')
+                    database.addPart(partNo.value, PartName.value, dieSize.value, cutWeight.value, forgingWeight.value, forgingDate.value, partQuantity.value, partyName.value);
                     partNo.value = '';
                     PartName.value = '';
                     dieSize.value = '';
                     cutWeight.value = '';
                     forgingWeight.value = '';
-                    material.value = '';
-                    forgingDate.value = ''
-
-                    // Repopulate the table
-                    // populateTable();
+                    forgingDate.value = '';
+                    partQuantity.value = '';
+                    partyName.value = ''
                 });
             }
         }</script>
@@ -155,22 +159,29 @@
             <div class="body-section">
                 <form>
                     <div class="form-group">
-                        <label for="partNo">Part no</label>
-                        <input type="text" class="form-control" id="partNo" placeholder="Part no" required />
-                        <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                        <label for="partNo">Part no <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="partNo" placeholder="Part no" />
+                        <span id="partNoErr" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label for="partName">Part name</label>
-                        <input type="text" class="form-control" id="partName" placeholder="Part name" required>
+                        <label for="partName">Part name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="partName" placeholder="Part name">
+                        <span id="partNameErr" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="partQuantity">Part quantity</label>
+                        <input type="text" class="form-control" id="partQuantity" placeholder="Part quantity">
+
                     </div>
                     <div class="form-group">
                         <label for="forgingDate">Forging date</label>
                         <input type="date" class="form-control" id="forgingDate" />
                     </div>
                     <div class="form-group">
-                        <label for="material">Material</label>
-                        <input type="text" class="form-control" id="material" />
+                        <label for="partyName">Party Name</label>
+                        <input type="text" class="form-control" id="partyName" />
                     </div>
+
                     <div class="form-group">
                         <label for="forgingWeight">Forging weight</label>
                         <input type="number" class="form-control" id="forgingWeight" />
@@ -181,10 +192,15 @@
                     </div>
                     <div class="form-group">
                         <label for="dieSize">Die size</label>
-                        <input type="number" class="form-control" id="dieSize" />
+                        <!-- <input type="number" class="form-control" id="dieSize" /> -->
+                        <select id="dieSize" name="dieSize" class="form-control"></select>
                     </div>
-                    <button id="addPart" type="submit" class="btn btn-primary">Add</button>
+                    <!-- <div class="form-group">
+                        <label for="partImage">Pt image</label>
+                        <input type="file" class="form-control" id="partImage" onchange="handleImageUpload(event)" />
+                    </div> -->
                 </form>
+                <button id="addPart" class="btn btn-primary">Add</button>
             </div>
         </div>
     </div>

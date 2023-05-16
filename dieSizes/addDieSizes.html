@@ -5,11 +5,63 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/main.css" />
-
     <title>Document</title>
+
 </head>
 
 <body>
+    <script>
+        const database = require('../js/database');
+
+        window.onload = async function () {
+            if (window.location.search) {
+                const params = new Proxy(new URLSearchParams(window.location.search), {
+                    get: (searchParams, prop) => searchParams.get(prop),
+                });
+                let value = params.id;
+                try {
+                    const doc = await database.getDieSizeById(value);
+                    document.getElementById('dieSizeNo').value = doc.dieSizeNo;
+                    document.getElementById('dieSize').value = doc.dieSize;
+                    document.getElementById('dieQantity').value = doc.dieSize;
+                    document.getElementById('dieMaterial').value = doc.dieMaterial;
+                    document.getElementById('partName').value = doc.partName;
+                    document.getElementById('partQuantity').value = doc.partQuantity;
+                    document.getElementById('addDie').innerHTML = 'Update Die'
+                    document.getElementById('addDie').addEventListener('click', () => {
+                        var dieSizeNo = document.getElementById('dieSizeNo');
+                        var dieSize = document.getElementById('dieSize');
+                        var dieQantity = document.getElementById('dieQantity');
+                        var dieMaterial = document.getElementById('dieMaterial');
+                        var partName = document.getElementById('partName');
+                        var partQuantity = document.getElementById('partQuantity');
+
+                        let dataSet = { dieSizeNo: dieSizeNo.value, dieSize: dieSize.value, dieQantity: dieQantity.value, dieMaterial: dieMaterial.value, partName: partName.value, partQuantity: partQuantity.value }
+                        database.updateDieSize(value, dataSet);
+                        window.location.href = "./dieSizes.html";
+                    });
+                } catch (err) {
+                    console.error(err);
+                }
+            } else {
+
+                document.getElementById('addDie').addEventListener('click', () => {
+                    var dieSizeNo = document.getElementById('dieSizeNo');
+                    var dieSize = document.getElementById('dieSize');
+                    var dieQantity = document.getElementById('dieQantity');
+                    var dieMaterial = document.getElementById('dieMaterial');
+                    var partName = document.getElementById('partName');
+                    var partQuantity = document.getElementById('partQuantity');
+                    database.addDieSize(dieSizeNo.value, dieSize.value, dieQantity.value, dieMaterial.value, partName.value, partQuantity.value);
+                    dieSizeNo.value = '';
+                    dieSize.value = '';
+                    dieQantity.value = '';
+                    dieMaterial.value = '';
+                    partName.value = '';
+                    partQuantity.value = '';
+                });
+            }
+        }</script>
     <div class="d-flex">
         <div class="d-flex flex-column flex-shrink-0 p-3 text-white h-100"
             style="width: 280px;background-color: #3C4B64;">
@@ -23,25 +75,21 @@
             <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
                     <a href="../index.html" class="nav-link text-white" aria-current="page">
-
                         Dashboard
                     </a>
                 </li>
                 <li>
                     <a href="../parts/parts.html" class="nav-link text-white">
-
                         Parts
                     </a>
                 </li>
                 <li>
-                    <a href="../materials/materials.html" class="nav-link active">
-
+                    <a href="../materials/materials.html" class="nav-link text-white">
                         Materials
                     </a>
                 </li>
                 <li>
-                    <a href="../dieSizes/dieSizes.html" class="nav-link text-white">
-
+                    <a href="../dieSizes/dieSizes.html" class="nav-link active">
                         Die Sizes
                     </a>
                 </li>
@@ -78,8 +126,8 @@
                         <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
                     </div>
                     <div class="form-group">
-                        <label for="diesize">Diesize</label>
-                        <input type="text" class="form-control" id="diesize" placeholder="Diesize" required>
+                        <label for="dieSize">Diesize</label>
+                        <input type="text" class="form-control" id="dieSize" placeholder="Diesize" required>
                     </div>
                     <div class="form-group">
                         <label for="dieQantity">Die Quantity</label>
@@ -99,7 +147,7 @@
                         <input type="number" class="form-control" id="partQuantity" placeholder="Part Quantity" />
                     </div>
 
-                    <button id="addMaterial" type="submit" class="btn btn-primary">Add</button>
+                    <button id="addDie" type="submit" class="btn btn-primary">Add</button>
                 </form>
             </div>
         </div>
