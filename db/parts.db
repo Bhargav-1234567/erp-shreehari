@@ -1,4 +1,4 @@
-{"partNo":"10","partName":"Plate Z","forgingDate":"2023-05-12","material":"titanium","forgingWeight":"11","cutWeight":"11","dieSize":"22","_id":"10lQG47LneIJH86W","partQuantity":"45","partyName":"R.K. industries pvt."}
+{"partNo":"10","partName":"Plate Z","forgingDate":"2023-05-12","material":"titanium","forgingWeight":"11","cutWeight":"11","dieSize":"29","_id":"10lQG47LneIJH86W","partQuantity":"45","partyName":"R.K. industries pvt."}
 {"partNo":"21","partName":"Grip new5","forgingDate":"2023-04-08","material":"irons","forgingWeight":"10","cutWeight":"10","dieSize":"20","_id":"21mUI59BxqPOQ72X","partQuantity":"30","partyName":"ABC Manufacturing"}
 {"partNo":"22","partName":"Handle E","forgingDate":"2023-05-03","material":"steel","forgingWeight":"12","cutWeight":"12","dieSize":"22","_id":"22nVH68CybQNP83Y","partQuantity":"25","partyName":"XYZ Corporation"}
 {"partNo":"23","partName":"Bracket F","forgingDate":"2023-03-18","material":"aluminum","forgingWeight":"6","cutWeight":"6","dieSize":"16","_id":"23oWI77DzaRMO94Z","partQuantity":"40","partyName":"PQR Industries"}
@@ -8,4 +8,3 @@
 {"partNo":"27","partName":"Handle F","forgingDate":"2023-03-22","material":"steel","forgingWeight":"9","cutWeight":"9","dieSize":"19","_id":"27sAM23HzcVQN38Z","partQuantity":"50","partyName":"MNO Corporation"}
 {"partNo":"28","partName":"Bracket G","forgingDate":"2023-04-20","material":"aluminum","forgingWeight":"7","cutWeight":"7","dieSize":"17","_id":"28tBN32IybWPO49W","partQuantity":"28","partyName":"EFG Manufacturing"}
 {"partNo":"29","partName":"Shaft E","forgingDate":"2023-03-08","material":"stainless steel","forgingWeight":"15","cutWeight":"15","dieSize":"25","_id":"29uCO41JzaXNP50X","partQuantity":"18","partyName":"HIJ Industries"}
-{"partNo":"30","partName":"Plate V","forgingDate":"2023-05-18","material":"titanium","forgingWeight":"10","cutWeight":"10","dieSize":"21","_id":"30vDP59KacROQ67Y","partQuantity":"42","partyName":"UVW Corporation"}

@@ -5,12 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/main.css" />
+
     <title>Document</title>
 </head>
 
 <body>
-    <script>
-        const database = require('../js/database');
+    <script> const database = require('../js/database');
         window.addEventListener('beforeunload', function () {
             document.querySelector('.loader').style.display = 'block';
         });
@@ -21,40 +21,48 @@
                 });
                 let value = params.id;
                 try {
-                    const doc = await database.getMaterialById(value);
-                    document.getElementById('materialNo').value = doc.materialNo;
-                    document.getElementById('materialName').value = doc.materialName;
-                    document.getElementById('materialQantity').value = doc.materialQantity;
-                    document.getElementById('materialPrice').value = doc.materialPrice;
-                    document.getElementById('addMaterial').innerHTML = 'Update Material';
-                    document.getElementById('addMaterial').addEventListener('click', () => {
+                    const doc = await database.getPartyById(value);
+                    document.getElementById('partyName').value = doc.partyName;
+                    document.getElementById('contactNo').value = doc.contactNo;
+                    document.getElementById('email').value = doc.email;
+                    document.getElementById('address').value = doc.address;
+                    document.getElementById('addParty').addEventListener('click', () => {
 
-                        var materialNo = document.getElementById('materialNo');
-                        var materialName = document.getElementById('materialName');
-                        var materialQantity = document.getElementById('materialQantity');
-                        var materialPrice = document.getElementById('materialPrice');
-
-                        let dataSet = { materialNo: materialNo.value, materialName: materialName.value, materialQantity: materialQantity.value, materialPrice: materialPrice.value }
-                        database.updateMaterial(value, dataSet);
-                        window.location.href = "./materials.html";
+                        var partyName = document.getElementById('partyName');
+                        if (!partyName.value) {
+                            document.getElementById('partyNameErr').innerHTML = 'Party name is required'
+                            document.getElementById('partyName').focus();
+                            return;
+                        }
+                        var contactNo = document.getElementById('contactNo');
+                        var email = document.getElementById('email');
+                        var address = document.getElementById('address');
+                        let dataSet = { partyName: partyName.value, contactNo: contactNo.value, email: email.value, address: address.value }
+                        database.updateParty(value, dataSet);
                     });
                 } catch (err) {
                     console.error(err);
                 }
             } else {
-                document.getElementById('addMaterial').addEventListener('click', () => {
-                    var materialNo = document.getElementById('materialNo');
-                    var materialName = document.getElementById('materialName');
-                    var materialQantity = document.getElementById('materialQantity');
-                    var materialPrice = document.getElementById('materialPrice');
-                    database.addMaterial(materialNo.value, materialName.value, materialQantity.value, materialPrice.value);
-                    materialNo.value = '';
-                    materialName.value = '';
-                    materialQantity.value = '';
-                    materialPrice.value = '';
+                document.getElementById('addParty').addEventListener('click', () => {
+                    var partyName = document.getElementById('partyName');
+                    if (!partyName.value) {
+                        document.getElementById('partyNameErr').innerHTML = 'Party name is required'
+                        document.getElementById('partyName').focus();
+                        return;
+                    }
+                    var contactNo = document.getElementById('contactNo');
+                    var email = document.getElementById('email');
+                    var address = document.getElementById('address');
+                    database.addParty(partyName.value, contactNo.value, email.value, address.value);
+                    contactNo.value = '';
+                    contactNo.value = '';
+                    email.value = '';
+                    address.value = '';
                 });
             }
-        }</script>
+        }
+    </script>
     <div class="loader">
         <img src="../assets/loading.gif" alt="Loading...">
     </div>
@@ -69,13 +77,14 @@
             </a>
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">
+
                 <li class="nav-item">
-                    <a href="../index.html" class="nav-link text-white" aria-current="page">
+                    <a class="nav-link  dashboard-link" href="../index.html" aria-current="page">
                         Dashboard
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  partsByParty-link" href="../party/party.html">
+                    <a class="nav-link active partsByParty-link" href="./party.html">
                         Party List
                     </a>
                 </li>
@@ -84,25 +93,21 @@
                         Parts By Party
                     </a>
                 </li>
-                <li>
-                    <a href="../parts/parts.html" class="nav-link text-white">
-
+                <li class="nav-item">
+                    <a class="nav-link  parts-link" href="../parts/parts.html">
                         Parts
                     </a>
                 </li>
-                <li>
-                    <a href="../materials/materials.html" class="nav-link active">
-
+                <li class="nav-item">
+                    <a class="nav-link materials-link" href="../materials/materials.html">
                         Materials
                     </a>
                 </li>
-                <li>
-                    <a href="../dieSizes/dieSizes.html" class="nav-link text-white">
-
+                <li class="nav-item">
+                    <a class="nav-link dieSizes-link" href="../dieSizes/dieSizes.html">
                         Die Sizes
                     </a>
                 </li>
-
             </ul>
             <hr>
             <div class="dropdown">
@@ -122,33 +127,30 @@
                 </ul>
             </div>
         </div>
-        <div class="container overflow-container" onload="formLoaded()">
+        <div class="container overflow-container party-container">
             <div class="inner-header">
-                <div class="common-title">Add Material</div>
-                <!-- <div><button class="btn btn-primary">Add Part</button></div> -->
+                <div class="common-title">Party</div>
             </div>
             <div class="body-section">
                 <form>
                     <div class="form-group">
-                        <label for="materialNo">Material no</label>
-                        <input type="text" class="form-control" id="materialNo" placeholder="Material no" required />
-                        <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                        <label for="partyName">Party name</label>
+                        <input type="text" class="form-control" id="partyName" placeholder="Party name" />
+                        <span id="partyNameErr" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label for="materialName">Material name</label>
-                        <input type="text" class="form-control" id="materialName" placeholder="Material name" required>
+                        <label for="contactNo">Mobile</label>
+                        <input type="number" class="form-control" id="contactNo" placeholder="Mobile">
                     </div>
                     <div class="form-group">
-                        <label for="materialQantity">Material quantity</label>
-                        <input type="number" class="form-control" id="materialQantity"
-                            placeholder="Material quantity" />
+                        <label for="Email">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="Email">
                     </div>
                     <div class="form-group">
-                        <label for="materialPrice">Material price</label>
-                        <input type="number" class="form-control" id="materialPrice" placeholder="Material price" />
+                        <label for="address">Address</label>
+                        <textarea class="form-control" id="address" placeholder="Address"></textarea>
                     </div>
-
-                    <button id="addMaterial" type="submit" class="btn btn-primary">Add</button>
+                    <button id="addParty" type="button" class="btn btn-primary">Add</button>
                 </form>
             </div>
         </div>

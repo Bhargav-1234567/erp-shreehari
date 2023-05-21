@@ -10,7 +10,10 @@
 
 <body>
     <script>
-        const database = require('../js/database');
+        const database = require('../js/database'); window.addEventListener('beforeunload', function () {
+            // Display the loader when the URL changes
+            document.querySelector('.loader').style.display = 'block';
+        });
 
         const partListRender = (parts) => {
             var tableBody = '';
@@ -76,6 +79,9 @@
         // }
 
     </script>
+    <div class="loader">
+        <img src="../assets/loading.gif" alt="Loading...">
+    </div>
     <div class="d-flex">
         <div class="d-flex flex-column flex-shrink-0 p-3 text-white h-100"
             style="width: 280px;background-color: #3C4B64;">
@@ -91,6 +97,16 @@
                     <a href="../index.html" class="nav-link text-white" aria-current="page">
 
                         Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  partsByParty-link" href="../party/party.html">
+                        Party List
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  partsByParty-link" href="../partsByParty/partsListByParty.html">
+                        Parts By Party
                     </a>
                 </li>
                 <li>

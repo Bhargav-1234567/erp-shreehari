@@ -5,45 +5,11 @@ let db = new Datastore({ filename: 'db/persons.db', autoload: true });
 let partsDb = new Datastore({ filename: 'db/parts.db', autoload: true });
 let materialsDb = new Datastore({ filename: 'db/materials.db', autoload: true });
 let dieSizeDb = new Datastore({ filename: 'db/dieSize.db', autoload: true });
-
-
-// Adds a person
-exports.addPerson = function (firstname, lastname) {
-
-  // Create the person object
-  var person = {
-    "firstname": firstname,
-    "lastname": lastname
-  };
-
-  // Save the person to the database
-  db.insert(person, function (err, newDoc) {
-    // Do nothing
-  });
-};
-
-// Returns all persons
-exports.getPersons = function (fnc) {
-
-  // Get all persons from the database
-  db.find({}, function (err, docs) {
-
-    // Execute the parameter function
-    fnc(docs);
-  });
-}
-
-// Deletes a person
-exports.deletePerson = function (id) {
-
-  db.remove({ _id: id }, {}, function (err, numRemoved) {
-    // Do nothing
-  });
-}
+let partyDb = new Datastore({ filename: 'db/partyList.db', autoload: true });
 
 
 
-
+///parts////////////////////////////////
 exports.addPart = function (partNo, partName, dieSize, cutWeight, forgingWeight, forgingDate, partQuantity, partyName) {
   var part = {
     "partNo": partNo,
@@ -212,6 +178,58 @@ exports.getDieSizeById = function (id) {
 exports.updateDieSize = function (id, data) {
   console.log(id, data)
   dieSizeDb.update({ _id: id }, { $set: data }, function (err, newDoc) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(`Successfully updated  record(s)`);
+    }
+  });
+};
+
+
+///////party////////
+
+exports.addParty = function (partyName, contactNo, email, address) {
+  var party = {
+    "partyName": partyName,
+    "contactNo": contactNo,
+    "email": email,
+    "address": address
+  };
+  partyDb.insert(party, function (err, newDoc) {
+  });
+};
+
+exports.getParties = function (fnc) {
+  partyDb.find({}, function (err, docs) {
+    fnc(docs);
+  });
+}
+
+exports.deleteParty = function (id) {
+  partyDb.remove({ _id: id }, {}, function (err, numRemoved) {
+    if (err) {
+      console.log({ err });
+    }
+  });
+}
+
+
+exports.getPartyById = function (id) {
+  return new Promise((resolve, reject) => {
+    partyDb.findOne({ _id: id }, function (err, doc) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(doc);
+      }
+    });
+  });
+}
+
+exports.updateParty = function (id, data) {
+  console.log(id, data)
+  partyDb.update({ _id: id }, { $set: data }, function (err, newDoc) {
     if (err) {
       console.log(err);
     } else {

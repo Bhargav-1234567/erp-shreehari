@@ -1,0 +1,151 @@
+  <div class="container overflow-container partsByParty-container">
+      <div class="inner-header">
+        <div class="common-title">Parts List By Party</div>
+      </div>
+    </div>
+
+    <div class="container overflow-container parts-container">
+
+      <div class="inner-header">
+        <div class="common-title">Parts</div>
+        <div><a href="./parts/AddParts.html"><button class="btn btn-primary"> Add Part</button></a></div>
+      </div>
+      <div class="body-sec">
+        <div class="filter-section">
+          <div class="filter-inner">
+            <div class="filter-item">
+              <div class="form-group">
+                <label for="forgingDate">Forging Date</label>
+                <input type="date" class="form-control" id="forgingDate" min="1970-01-01" max="2100-12-31"
+                  pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" placeholder="Forging Date"
+                  onchange="handelDataFilter(event,'forgingDate')" />
+              </div>
+            </div>
+            <div class="filter-item">
+              <div class="form-group">
+                <label for="partName">Part Name</label>
+                <div class="input-group">
+                  <input type="text" class="form-control" id="partName" placeholder="eg. grip"
+                    onkeydown="handelDataFilter(event,'partName')" />
+                </div>
+              </div>
+            </div>
+            <div class="filter-item">
+              <div class="form-group">
+                <label for="partyName">Party Name</label>
+                <div class="input-group">
+                  <input type="text" class="form-control" id="partyName" placeholder="eg. XYZ Corporation"
+                    onkeydown="handelDataFilter(event,'partyName')" />
+                </div>
+              </div>
+            </div>
+            <div class="filter-item">
+              <div class="form-group">
+                <label for="partNo">Part No.</label>
+                <div class="input-group">
+                  <input type="number" class="form-control" id="partNo" placeholder="eg. 1"
+                    onkeydown="handelDataFilter(event,'partNo')" />
+                </div>
+              </div>
+            </div>
+            <div class="filter-item">
+              <div class="form-group">
+                <label for="dieSize">Die Size</label>
+                <div class="input-group">
+                  <input type="number" class="form-control" id="dieSize" placeholder="12"
+                    onkeydown="handelDataFilter(event,'dieSize')" />
+                </div>
+              </div>
+            </div>
+            <div class="filter-item">
+              <div class="form-group">
+                <label for="partQuantity">Part Quantity</label>
+                <div class="input-group">
+                  <input type="number" class="form-control" id="partQuantity" placeholder="12"
+                    onkeydown="handelDataFilter(event,'partQuantity')" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="overflow-container h-75 ">
+          <table class="table table-hover">
+            <thead class="thead-dark">
+              <tr>
+                <th>Part No.</th>
+                <th>Part Quantity</th>
+                <th>Part Name</th>
+                <th>Diesize</th>
+                <th>Cut Weight</th>
+                <th>Forging Weight</th>
+                <th>Forging Date</th>
+                <th>Party Name</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="partList">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="container overflow-container materials-container">
+      <div class="inner-header">
+        <div class="common-title">Materials</div>
+        <div><a href="./materials/addMaterials.html"><button class="btn btn-primary">Add Materials</button></a>
+        </div>
+      </div>
+      <div class="body-sec">
+        <div class="filter-section">
+
+        </div>
+        <div class="overflow-container-title">
+
+          <table class="table table-hover">
+            <thead class="thead-dark">
+              <tr>
+                <th>Material No.</th>
+                <th>Material Name</th>
+                <th>Material Qunatity</th>
+                <th>Material Price</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="materialList">
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container overflow-container dieSizes-container">
+      <div class="inner-header">
+        <div class="common-title">Die sizes</div>
+        <div><a href="./dieSizes/addDieSizes.html"><button class="btn btn-primary">Add Die size</button></a>
+        </div>
+      </div>
+      <div class="body-sec">
+        <div class="filter-section">
+
+        </div>
+        <div class="overflow-container-title">
+          <table class="table table-hover">
+            <thead class="thead-dark" style="position: sticky;top: 0">
+              <tr>
+                <th>Die Size No.</th>
+                <th>Die Size</th>
+                <th>Die Qunatity</th>
+                <th>Die Material</th>
+                <th>Part Name</th>
+                <th>Part Quantity</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="DieSizeList">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>

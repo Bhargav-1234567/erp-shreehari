@@ -84,3 +84,58 @@ th {
     white-space: nowrap;
     overflow: hidden; */
 }
+
+.loader {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: 9999;
+    text-align: center;
+}
+
+.loader img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.active {
+    color: #3C4B64;
+}
+
+.active:hover {
+    color: #3C4B64 !important;
+}
+
+.nav-item {
+    cursor: pointer;
+}
+
+/* .parts-container {
+    display: none;
+}
+
+.materials-container {
+    display: none;
+}
+
+.dieSizes-container {
+    display: none;
+}
+
+.dashboard-container {
+    display: none;
+}
+
+.partsByParty-container {
+    display: none;
+}
+
+.d-block {
+    display: block !important;
+} */

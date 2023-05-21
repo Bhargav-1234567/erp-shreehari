@@ -2,15 +2,38 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Electron Demo</title>
+  <title>Dashboard</title>
   <!-- <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/font-awesome.min.css"> -->
   <!-- <link rel="stylesheet" href="css/skeleton.css"> -->
   <link rel="stylesheet" href="css/main.css" />
   <!-- <script type="text/javascript" src="js/index.js"></script> -->
 </head>
+<style>
+  /* CSS for loader */
+</style>
 
 <body>
+  <script>
+    let active = 'dashboard'
+    const database = require('./js/database');
+    window.addEventListener('beforeunload', function () {
+      // Display the loader when the URL changes
+      document.querySelector('.loader').style.display = 'block';
+    });
+    window.onload = function () {
+      document.querySelector(`.dashboard-link`).classList.add('active');
+      document.querySelector(`.dashboard-container`).classList.add('d-block')
+    }
+
+    //////////////////////parts
+
+
+  </script>
+  <div class="loader">
+    <img src="./assets/loading.gif" alt="Loading...">
+  </div>
+
   <div class="d-flex">
     <div class="d-flex flex-column flex-shrink-0 p-3 text-white h-100" style="width: 280px;background-color: #3C4B64;">
       <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
@@ -21,23 +44,34 @@
       </a>
       <hr>
       <ul class="nav nav-pills flex-column mb-auto">
+
         <li class="nav-item">
-          <a href="index.html" class="nav-link active" aria-current="page">
+          <a class="nav-link  dashboard-link" href="./index.html" aria-current="page">
             Dashboard
           </a>
         </li>
         <li class="nav-item">
-          <a href="./parts/parts.html" class="nav-link text-white">
+          <a class="nav-link  partsByParty-link" href="./party/party.html">
+            Party List
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link  partsByParty-link" href="./partsByParty/partsListByParty.html">
+            Parts By Party
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link  parts-link" href="./parts/parts.html">
             Parts
           </a>
         </li>
         <li class="nav-item">
-          <a href="./materials/materials.html" class="nav-link text-white">
+          <a class="nav-link materials-link" href="./materials/materials.html">
             Materials
           </a>
         </li>
         <li class="nav-item">
-          <a href="./dieSizes/dieSizes.html" class="nav-link text-white">
+          <a class="nav-link dieSizes-link" href="./dieSizes/dieSizes.html">
             Die Sizes
           </a>
         </li>
@@ -60,12 +94,14 @@
         </ul>
       </div>
     </div>
-    <div class="container">
+
+    <div class="container overflow-container dashboard-container">
       <div class="inner-header">
         <div class="common-title">Dashboard</div>
-
       </div>
     </div>
+
+
     <script type="text/javascript">
       var remote = require('electron').remote;
       document.addEventListener('keydown', function (e) {

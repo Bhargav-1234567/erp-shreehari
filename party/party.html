@@ -1,11 +1,12 @@
-<html>
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <title>Electron Demo</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/main.css" />
 
-    <!-- <script type="text/javascript" src="../js/materials.js"></script> -->
+    <title>Document</title>
 </head>
 
 <body>
@@ -15,19 +16,19 @@
             // Display the loader when the URL changes
             document.querySelector('.loader').style.display = 'block';
         });
-        const partListRender = (materials) => {
+        const partListRender = (parties) => {
             var tableBody = '';
-            for (i = 0; i < materials.length; i++) {
+            for (i = 0; i < parties.length; i++) {
                 tableBody += '<tr>';
-                tableBody += '  <td class="h-100"><div class="align-items-center d-flex h-100">' + materials[i].materialNo + '</div>  </td>';
-                tableBody += '  <td class="h-100"><div class="align-items-center d-flex h-100">' + materials[i].materialName + '</div></td>';
-                tableBody += '  <td class="h-100"><div class="align-items-center d-flex h-100">' + materials[i].materialQantity + '</div></td>';
-                tableBody += '  <td class="h-100"><div class="align-items-center d-flex h-100">' + materials[i].materialPrice + '</div></td>';
+                tableBody += '  <td class="h-100"><div class="align-items-center d-flex h-100">' + parties[i].partyName + '</div>  </td>';
+                tableBody += '  <td class="h-100"><div class="align-items-center d-flex h-100">' + parties[i].contactNo + '</div></td>';
+                tableBody += '  <td class="h-100"><div class="align-items-center d-flex h-100">' + parties[i].email + '</div></td>';
+                tableBody += '  <td class="h-100"><div class="align-items-center d-flex h-100">' + parties[i].address + '</div></td>';
                 tableBody += `  <td>
-                            <button class="btn btn-danger" onclick="deletMaterial(\'` + materials[i]._id + `\')">
+                            <button class="btn btn-danger" onclick="deleteParty(\'` + parties[i]._id + `\')">
                                 <img src="../assets/delete.svg" height="15" width="15"/>
                             </button>
-                            <a href="./AddMaterials.html?id=${materials[i]._id}">
+                            <a href="./addparty.html?id=${parties[i]._id}">
                                 <button  class="btn btn-warning ml-3" ><img src="../assets/edit.svg" height="15" width="15"/></button>
                             </a>
                         </td>`
@@ -41,21 +42,21 @@
         }
 
 
-        function deletMaterial(id) {
-            database.deletMaterial(id);
+        function deleteParty(id) {
+            database.deleteParty(id);
             populateTable()
         }
 
         const populateTable = () => {
-            database.getMaterials(function (parts) {
-                document.getElementById('materialList').innerHTML = partListRender(parts);
+            database.getParties(function (parties) {
+                document.getElementById('partyList').innerHTML = partListRender(parties);
             });
         }
     </script>
     <div class="loader">
         <img src="../assets/loading.gif" alt="Loading...">
     </div>
-    <div class="d-flex" onload="loadPage()">
+    <div class="d-flex">
         <div class="d-flex flex-column flex-shrink-0 p-3 text-white h-100"
             style="width: 280px;background-color: #3C4B64;">
             <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
@@ -66,14 +67,14 @@
             </a>
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">
-                <li class="nav-item">
-                    <a href="../index.html" class="nav-link text-white" aria-current="page">
 
+                <li class="nav-item">
+                    <a class="nav-link  dashboard-link" href="../index.html" aria-current="page">
                         Dashboard
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  partsByParty-link" href="../party/party.html">
+                    <a class="nav-link active partsByParty-link" href="#">
                         Party List
                     </a>
                 </li>
@@ -82,24 +83,21 @@
                         Parts By Party
                     </a>
                 </li>
-                <li>
-                    <a href="../parts/parts.html" class="nav-link text-white">
+                <li class="nav-item">
+                    <a class="nav-link  parts-link" href="../parts/parts.html">
                         Parts
                     </a>
                 </li>
-                <li>
-                    <a href="../materials/materials.html" class="nav-link active">
-
+                <li class="nav-item">
+                    <a class="nav-link parties-link" href="../parties/parties.html">
                         Materials
                     </a>
                 </li>
-                <li>
-                    <a href="../dieSizes/dieSizes.html" class="nav-link text-white">
-
+                <li class="nav-item">
+                    <a class="nav-link dieSizes-link" href="../dieSizes/dieSizes.html">
                         Die Sizes
                     </a>
                 </li>
-
             </ul>
             <hr>
             <div class="dropdown">
@@ -119,11 +117,10 @@
                 </ul>
             </div>
         </div>
-        <div class="container overflow-container">
+        <div class="container overflow-container party-container">
             <div class="inner-header">
-                <div class="common-title">Materials</div>
-                <div><a href="./addMaterials.html"><button class="btn btn-primary">Add Materials</button></a>
-                </div>
+                <div class="common-title">Party</div>
+                <div><a href="./addParty.html"><button class="btn btn-primary"> Add Party</button></a></div>
             </div>
             <div class="body-sec">
                 <div class="filter-section">
@@ -134,14 +131,14 @@
                     <table class="table table-hover">
                         <thead class="thead-dark">
                             <tr>
-                                <th>Material No.</th>
-                                <th>Material Name</th>
-                                <th>Material Qunatity</th>
-                                <th>Material Price</th>
+                                <th>Party name</th>
+                                <th>Mobile</th>
+                                <th>Email</th>
+                                <th>Address</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody id="materialList">
+                        <tbody id="partyList">
                         </tbody>
                     </table>
                 </div>
@@ -149,16 +146,7 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        var remote = require('electron').remote;
-        document.addEventListener('keydown', function (e) {
-            if (e.which === 123) {
-                remote.getCurrentWindow().webContents.openDevTools();
-            } else if (e.which === 116) {
-                location.reload();
-            }
-        });
-    </script>
+
 </body>
 
 </html>
