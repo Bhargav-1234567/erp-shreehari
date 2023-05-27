@@ -14,6 +14,7 @@
 </style>
 
 <body>
+
   <script>
     let active = 'dashboard'
     const database = require('./js/database');
@@ -22,9 +23,13 @@
       document.querySelector('.loader').style.display = 'block';
     });
     window.onload = function () {
-      document.querySelector(`.dashboard-link`).classList.add('active');
-      document.querySelector(`.dashboard-container`).classList.add('d-block')
+      database.getParts(function (parts) {
+        document.querySelector('.part-count').innerHTML = `${parts.length} parts forged in current week`;
+      });
+      var moment = require('moment');
+      document.querySelector('.current-date').innerHTML = ` - ${moment().format('MMM d, YYYY')}`;
     }
+
 
     //////////////////////parts
 
@@ -46,7 +51,7 @@
       <ul class="nav nav-pills flex-column mb-auto">
 
         <li class="nav-item">
-          <a class="nav-link  dashboard-link" href="./index.html" aria-current="page">
+          <a class="nav-link active  dashboard-link" href="./index.html" aria-current="page">
             Dashboard
           </a>
         </li>
@@ -98,6 +103,26 @@
     <div class="container overflow-container dashboard-container">
       <div class="inner-header">
         <div class="common-title">Dashboard</div>
+      </div>
+      <div class="body-sec">
+        <div class="jumbotron jumbotron-fluid">
+          <div class="container">
+            <div class="d-flex">
+              <div class="w-75">
+                <h1 class="display-4 part-count"> </h1>
+                <span class="lead">Portfolio for current week</span><span class="current-date"></span>
+              </div>
+              <div class="w-25">
+                <a href="./partsByParty/addTodaysRecord.html">
+                  <div class="add-btn">
+                    <div class="add-icon"><img src="./assets/add-svgrepo-com.svg" width="80" height="40" /></div>
+                    <div>Add todays work</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 

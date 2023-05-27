@@ -6,7 +6,7 @@ let partsDb = new Datastore({ filename: 'db/parts.db', autoload: true });
 let materialsDb = new Datastore({ filename: 'db/materials.db', autoload: true });
 let dieSizeDb = new Datastore({ filename: 'db/dieSize.db', autoload: true });
 let partyDb = new Datastore({ filename: 'db/partyList.db', autoload: true });
-
+let partsByPartyDb = new Datastore({ filename: 'db/partsByParty.db', autoload: true });
 
 
 ///parts////////////////////////////////
@@ -214,6 +214,70 @@ exports.deleteParty = function (id) {
   });
 }
 
+exports.getPartyById = function (id) {
+  return new Promise((resolve, reject) => {
+    partyDb.findOne({ _id: id }, function (err, doc) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(doc);
+      }
+    });
+  });
+}
+
+exports.updateParty = function (id, data) {
+  console.log(id, data)
+  partyDb.update({ _id: id }, { $set: data }, function (err, newDoc) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(`Successfully updated  record(s)`);
+    }
+  });
+};
+
+
+/////////partsByParty//////////
+exports.addPartByParty = function (partyName, partNumber, date, numberOfParts) {
+  var partByParty = {
+    "partyName": partyName,
+    "partNumber": partNumber,
+    "date": date,
+    "numberOfParts": numberOfParts,
+
+  };
+  partsByPartyDb.insert(partByParty, function (err, newDoc) {
+  });
+};
+
+exports.getPartByParty = function (fnc) {
+  partsByPartyDb.find({}, function (err, docs) {
+    fnc(docs);
+  });
+}
+
+exports.getCurrentWeekPartByParty = function (fnc) {
+  db.find({ date: formattedCurrentDate }, (err, records) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+
+    const data = {
+      records: records
+    };
+    console.log({ data })
+  })
+}
+
+exports.deletePartByParty = function (id) {
+  partsByPartyDb.remove({ _id: id }, {}, function (err, numRemoved) {
+    if (err) {
+      console.log({ err });
+    }
+  });
+}
 
 exports.getPartyById = function (id) {
   return new Promise((resolve, reject) => {

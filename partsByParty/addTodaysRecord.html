@@ -1,0 +1,185 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/main.css" />
+
+</head>
+
+<body>
+    <script>
+        const database = require('../js/database');
+        var moment = require('moment');
+
+        window.addEventListener('beforeunload', function () {
+            // Display the loader when the URL changes
+            document.querySelector('.loader').style.display = 'block';
+        });
+
+        function getPartNoOptions(parts) {
+            let options;
+            for (i = 0; i < parts.length; i++) {
+                options += `<option value="${parts[i].partNo} - ${parts[i].partName}">${parts[i].partNo} - ${parts[i].partName}</option>`;
+            }
+            return options;
+        }
+
+        function getPartyNameOptions(parts) {
+            let options;
+            for (i = 0; i < parts.length; i++) {
+                options += `<option value="${parts[i].partyName}">${parts[i].partyName}</option>`;
+            }
+            return options;
+        }
+
+
+        window.onload = async function () {
+            database.getParts(function (parts) {
+                document.getElementById("partNo").innerHTML = getPartNoOptions(parts)
+            })
+
+            database.getParties(function (parts) {
+                document.getElementById("partyName").innerHTML = getPartyNameOptions(parts)
+            })
+
+            document.querySelector("#currentDate").value = moment().format('YYYY-MM-DD')
+            let err = false;
+            document.getElementById('addPart').addEventListener('click', () => {
+                var partNo = document.getElementById('partNo');
+                if (!partNo.value) {
+                    document.getElementById('partNoErr').innerHTML = 'Part number is required'
+                    document.getElementById('partNo').focus();
+                    err = true
+                } else {
+                    err = false
+
+                }
+                var partQuantity = document.getElementById('partQuantity');
+                if (!partNo.value) {
+                    document.getElementById('partQuantityErr').innerHTML = 'Party quantity is required'
+                    document.getElementById('partQuantity').focus();
+                    err = true
+                } else {
+                    err = false
+
+                }
+                var currentDate = document.getElementById('currentDate');
+                var partyName = document.getElementById('partyName')
+                if (!partNo.value) {
+                    document.getElementById('partyNameErr').innerHTML = 'Party name is required'
+                    document.getElementById('partyName').focus();
+                    err = true
+                } else {
+                    err = false
+
+                }
+                if (!err) {
+                    database.addPartByParty(partyName.partyName, partNo.partNo, moment().format('YYYY-MM-DD'), partQuantity.value);
+                    partNo.value = '';
+                    partQuantity.value = '';
+                    partyName.value = ''
+                }
+            });
+
+        }</script>
+    <div class="loader">
+        <img src="../assets/loading.gif" alt="Loading...">
+    </div>
+    <div class="d-flex">
+        <div class="d-flex flex-column flex-shrink-0 p-3 text-white h-100"
+            style="width: 280px;background-color: #3C4B64;">
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                <svg class="bi me-2" width="40" height="32">
+                    <use xlink:href="#bootstrap"></use>
+                </svg>
+                <span class="fs-4">Sidebar</span>
+            </a>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                    <a href="../index.html" class="nav-link text-white" aria-current="page">
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  partsByParty-link" href="../party/party.html">
+                        Party List
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active partsByParty-link" href="../partsByParty/partsListByParty.html">
+                        Parts By Party
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../parts/parts.html" class="nav-link">
+                        Parts
+                    </a>
+                </li>
+                <li>
+                    <a href="../materials/materials.html" class="nav-link text-white">
+                        Materials
+                    </a>
+                </li>
+                <li>
+                    <a href="../dieSizes/dieSizes.html" class="nav-link text-white">
+                        Die Sizes
+                    </a>
+                </li>
+            </ul>
+            <hr>
+            <div class="dropdown">
+                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                    id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                    <strong>Profile</strong>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+                    <li><a class="dropdown-item" href="#">New project...</a></li>
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#">Sign out</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container overflow-container" onload="formLoaded()">
+            <div class="inner-header">
+                <div class="common-title">Add Part</div>
+                <!-- <div><button class="btn btn-primary">Add Part</button></div> -->
+            </div>
+            <div class="body-section">
+                <form>
+                    <div class="form-group">
+                        <label for="partNo">Part no <span class="text-danger">*</span></label>
+                        <select id="partNo" name="partNo" class="form-control"></select>
+                        <span id="partNoErr" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="partyName">Party name <span class="text-danger">*</span></label>
+                        <select id="partyName" name="partyName" class="form-control"></select>
+                        <span id="partyNameErr" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="currentDate">Date<span class="text-danger">*</span></label>
+                        <input disabled type="date" class="form-control" id="currentDate" />
+                    </div>
+                    <div class="form-group">
+                        <label for="partQuantity">Part quantity<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="partQuantity" placeholder="Part quantity">
+                        <span id="partQuantityErr" class="text-danger"></span>
+                    </div>
+
+                </form>
+                <button id="addPart" class="btn btn-primary">Add</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
